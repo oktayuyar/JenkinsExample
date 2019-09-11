@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="JenkinsExample" default="Jenkins Example" basedir=".">
+
+    <!-- Folders Properties -->
+    <property name="sourceFolder" value="src"/>
+    <property name="destFolder" value="bin"/>
+    <property name="libsFolder" value="libs"/>
+    <property name="testSourceFolder" value="test"/>
+    <property name="testSuiteFolder" value="testSuite"/>
+    <property name="testResultsFolder" value="${testSuiteFolder}/testResults"/>
+    <property name="testBinFolder" value="${testSuiteFolder}/testBin"/>
+
+    <!-- jUnit Jar Properties -->
+    <property name="jUnitJar" value="${libsFolder}\junit.jar"/>
+    <property name="jUnitHamcrestJar" value="${libsFolder}\org.hamcrest.core_1.3.jar"/>
+
+    <target name="Jenkins Example">
+        <echo>Jenkins Example</echo>
+    </target>
+
+    <target name="clean">
+        <delete dir="${destFolder}"/>
+        <delete dir="${testSuiteFolder}"/>
+
+        <mkdir dir="${destFolder}"/>
+        <mkdir dir="${testBinFolder}"/>
+        <mkdir dir="${testResultsFolder}"/>
+
+    </target>
+
+    <target name="compile" depends="clean">
+        <javac 	srcdir="${sourceFolder}"
+                  destdir="${destFolder}"
+                  includeantruntime="No"
+
+                  classpath="${jUnitJar};${jUnitHamcrestJar};${destFolder}"
+
+        />
+    </target>
+
+    <target name="compileTests" depends="compile">
+        <javac 	srcdir="${testSourceFolder}"
+                  destdir="${testBinFolder}"
+                  includeantruntime="No"
+                  classpath="${jUnitJar};${jUnitHamcrestJar};${destFolder}"
+        />
+    </target>
+
+    <target name="runTests" depends="compileTests">
+        <junit printsummary="on" haltonfailure="false">
+            <batchtest fork="yes" todir="${testResultsFolder}">
+                <fileset dir="${testBinFolder}" includes="**/*TestCase.class"/>
+                <formatter type="xml"/>
+            </batchtest>
+            <classpath>
+                <pathelement location="${jUnitJar}"/>
+                <pathelement location="${jUnitHamcrestJar}"/>
+                <pathelement location="${testBinFolder}"/>
+                <pathelement location="${destFolder}"/>
+            </classpath>
+        </junit>
+    </target>
+
+
+
+</project>

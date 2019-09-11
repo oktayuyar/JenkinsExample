@@ -1,5 +1,6 @@
 package com.oktay.test;
 
+import org.apache.log4j.Logger;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -8,9 +9,11 @@ import org.junit.Test;
  */
 public class TestExample {
 
+    final static Logger logger = Logger.getLogger(TestExample.class);
+
     @Test
     public void checkName(){
-        System.out.println("Oktay");
+        logger.info("Test Example");
         Assert.assertTrue( "True : ", true);
     }
 }

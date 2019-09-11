@@ -1,5 +1,6 @@
 package com.oktay.test;
 
+import com.oktay.main.Math;
 import org.apache.log4j.Logger;
 
 import org.junit.Assert;
@@ -13,8 +14,14 @@ public class TestExample {
     final static Logger logger = Logger.getLogger(TestExample.class);
 
     @Test
-    public void checkName(){
-        logger.info("Test Example");
-        Assert.assertTrue( "True : ", true);
+    public void checkAdditionMethod(){
+        int result = Math.addition(5,6);
+        Assert.assertEquals( "Toplama fonksiyonu sonucu doğru bulmadı!", result,11);
+    }
+
+    @Test
+    public void checksubtractionMethod(){
+        int result = Math.subtraction(10,5);
+        Assert.assertEquals( "Toplama fonksiyonu sonucu doğru bulmadı!", result,4);
     }
 }

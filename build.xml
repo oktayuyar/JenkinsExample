@@ -1,66 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="JenkinsExample" default="Jenkins Example" basedir=".">
 
-    <!-- Folders Properties -->
-    <property name="sourceFolder" value="src"/>
-    <property name="destFolder" value="bin"/>
-    <property name="libsFolder" value="libs"/>
-    <property name="testSourceFolder" value="test"/>
-    <property name="testSuiteFolder" value="testSuite"/>
-    <property name="testResultsFolder" value="${testSuiteFolder}/testResults"/>
-    <property name="testBinFolder" value="${testSuiteFolder}/testBin"/>
+<project name="Jenkins Junit Example">
+    <property name="main.build.dir" value="build/main"/>
+    <property name="main.src.dir" value="src/main/java"/>
+    <property name="test.build.dir" value="build/test"/>
+    <property name="test.src.dir" value="src/test/java"/>
 
-    <!-- jUnit Jar Properties -->
-    <property name="jUnitJar" value="${libsFolder}\junit.jar"/>
-    <property name="jUnitHamcrestJar" value="${libsFolder}\org.hamcrest.core_1.3.jar"/>
+    <path id="classpath.test">
+        <pathelement location="lib/junit-4.12.jar"/>
+        <pathelement location="lib/hamcrest-core-1.3.jar"/>
+        <pathelement location="${main.build.dir}"/>
+    </path>
 
-    <target name="Jenkins Example">
-        <echo>Jenkins Example</echo>
+    <target name="compile">
+        <mkdir dir="${main.build.dir}"/>
+        <javac srcdir="${main.src.dir}" destdir="${main.build.dir}" includeantruntime="false"/>
     </target>
 
-    <target name="clean">
-        <delete dir="${destFolder}"/>
-        <delete dir="${testSuiteFolder}"/>
-
-        <mkdir dir="${destFolder}"/>
-        <mkdir dir="${testBinFolder}"/>
-        <mkdir dir="${testResultsFolder}"/>
-
+    <target name="test-compile" depends="compile">
+        <mkdir dir="${test.build.dir}"/>
+        <javac srcdir="${test.src.dir}" destdir="${test.build.dir}" includeantruntime="false">
+            <classpath refid="classpath.test"/>
+        </javac>
     </target>
 
-    <target name="compile" depends="clean">
-        <javac 	srcdir="${sourceFolder}"
-                  destdir="${destFolder}"
-                  includeantruntime="No"
-
-                  classpath="${jUnitJar};${jUnitHamcrestJar};${destFolder}"
-
-        />
-    </target>
-
-    <target name="compileTests" depends="compile">
-        <javac 	srcdir="${testSourceFolder}"
-                  destdir="${testBinFolder}"
-                  includeantruntime="No"
-                  classpath="${jUnitJar};${jUnitHamcrestJar};${destFolder}"
-        />
-    </target>
-
-    <target name="runTests" depends="compileTests">
-        <junit printsummary="on" haltonfailure="false">
-            <batchtest fork="yes" todir="${testResultsFolder}">
-                <fileset dir="${testBinFolder}" includes="**/*TestCase.class"/>
-                <formatter type="xml"/>
-            </batchtest>
+    <target name="test" depends="test-compile">
+        <junit printsummary="on" haltonfailure="yes" fork="true">
             <classpath>
-                <pathelement location="${jUnitJar}"/>
-                <pathelement location="${jUnitHamcrestJar}"/>
-                <pathelement location="${testBinFolder}"/>
-                <pathelement location="${destFolder}"/>
+                <path refid="classpath.test"/>
+                <pathelement location="${test.build.dir}"/>
             </classpath>
+            <formatter type="brief" usefile="false" />
+            <batchtest>
+                <fileset dir="${test.src.dir}" includes="**/*Test.java" />
+            </batchtest>
         </junit>
     </target>
-
-
-
 </project>

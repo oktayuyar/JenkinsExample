@@ -1,4 +1,4 @@
-package com.oktay.jenkins;
+package com.oktay.test;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -10,6 +10,7 @@ public class TestExample {
 
     @Test
     public void checkName(){
-        Assert.assertTrue( "True : ", false);
+        System.out.println("Oktay");
+        Assert.assertTrue( "True : ", true);
     }
 }

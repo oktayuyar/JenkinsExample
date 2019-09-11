@@ -22,6 +22,6 @@ public class TestExample {
     @Test
     public void checksubtractionMethod(){
         int result = Math.subtraction(10,5);
-        Assert.assertEquals( "Toplama fonksiyonu sonucu doğru bulmadı!", result,4);
+        Assert.assertEquals( "Çıkarma fonksiyonu sonucu doğru bulmadı!", result,4);
     }
 }

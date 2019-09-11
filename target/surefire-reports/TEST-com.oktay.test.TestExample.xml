@@ -65,7 +65,7 @@
     <property name="ftp.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="sun.cpu.isalist" value=""/>
   </properties>
-  <testcase classname="com.oktay.test.TestExample" name="checksubtractionMethod" time="0.011">
+  <testcase classname="com.oktay.test.TestExample" name="checksubtractionMethod" time="0.015">
     <failure message="Toplama fonksiyonu sonucu doğru bulmadı! expected:&lt;5&gt; but was:&lt;4&gt;" type="java.lang.AssertionError">java.lang.AssertionError: Toplama fonksiyonu sonucu doğru bulmadı! expected:&lt;5&gt; but was:&lt;4&gt;
 	at org.junit.Assert.fail(Assert.java:88)
 	at org.junit.Assert.failNotEquals(Assert.java:834)
@@ -101,8 +101,8 @@
 	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:115)
 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:75)
 </failure>
-    <system-out>2019-09-11 15:09:38 INFO  Math:26 - 10 - 5 = 5
+    <system-out>2019-09-11 15:10:46 INFO  Math:26 - 10 - 5 = 5
 </system-out>
   </testcase>
-  <testcase classname="com.oktay.test.TestExample" name="checkAdditionMethod" time="0.004"/>
+  <testcase classname="com.oktay.test.TestExample" name="checkAdditionMethod" time="0"/>
 </testsuite>

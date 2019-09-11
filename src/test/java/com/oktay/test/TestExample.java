@@ -1,6 +1,7 @@
 package com.oktay.test;
 
 import org.apache.log4j.Logger;
+
 import org.junit.Assert;
 import org.junit.Test;
 
